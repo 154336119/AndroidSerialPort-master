@@ -49,7 +49,7 @@ public class SelectSerialPortActivity extends AppCompatActivity implements Adapt
 //        Log.d(">>>>>>>>>>>>>>>>>>>>>", StringToHex.hexStringToByteArray());
 //        Log.d(">>>>>>>>>>>>>>>>>>>>>", StringToHex.bytesToHexString());
 
-         StringToHex.getXor(StringToHex.hexStringToByteArray("4F4F4F4E"));
+//         StringToHex.getXor(StringToHex.hexStringToByteArray("4F4F4F4E"));
 
         SerialPortFinder serialPortFinder = new SerialPortFinder();
 

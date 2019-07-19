@@ -18,17 +18,19 @@ import com.kongqw.serialportlibrary.SerialPortManager;
 import java.io.File;
 import java.util.Arrays;
 
+import static com.kongqw.serialport.StringToHex.bytesToHexString;
+
 public class SerialPortActivity extends AppCompatActivity implements OnOpenSerialPortListener {
 
     private static final String TAG = SerialPortActivity.class.getSimpleName();
     public static final String DEVICE = "device";
     private SerialPortManager mSerialPortManager;
-
+    EditText editTextSendContent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_serial_port);
-
+       editTextSendContent = (EditText) findViewById(R.id.et_send_content);
         Device device = (Device) getIntent().getSerializableExtra(DEVICE);
         Log.i(TAG, "onCreate: device = " + device);
         if (null == device) {
@@ -49,7 +51,8 @@ public class SerialPortActivity extends AppCompatActivity implements OnOpenSeria
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                showToast(String.format("接收\n%s", new String(finalBytes)));
+                                showToast(String.format("接收\n%s",bytesToHexString(finalBytes)));
+                                editTextSendContent.setText(bytesToHexString(finalBytes));
                             }
                         });
                     }
@@ -62,7 +65,7 @@ public class SerialPortActivity extends AppCompatActivity implements OnOpenSeria
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                showToast(String.format("发送\n%s", new String(finalBytes)));
+//                                showToast(String.format("发送\n%s", new String(finalBytes)));
                             }
                         });
                     }
@@ -137,7 +140,6 @@ public class SerialPortActivity extends AppCompatActivity implements OnOpenSeria
      * @param view view
      */
     public void onSend(View view) {
-        EditText editTextSendContent = (EditText) findViewById(R.id.et_send_content);
         if (null == editTextSendContent) {
             return;
         }
